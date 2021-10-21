@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Switch, FormControlLabel } from "@material-ui/core";
 
-function form() {
+function Form() {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   return (
-    <form>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
       <TextField
+        value={name}
+        onChange={(event) => {
+          setName(event.target.value);
+        }}
         id="name"
         label="Name"
         variant="outlined"
@@ -12,6 +23,10 @@ function form() {
         fullWidth
       />
       <TextField
+        value={lastName}
+        onChange={(event) => {
+          setLastName(event.target.value);
+        }}
         id="lastName"
         label="Last Name"
         variant="outlined"
@@ -33,9 +48,7 @@ function form() {
       />
       <FormControlLabel
         label="News"
-        control={
-          <Switch name="news" defaultChecked="true" color="primary" />
-        }
+        control={<Switch name="news" defaultChecked="true" color="primary" />}
       />
 
       <Button type="submit" variant="contained" color="primary">
@@ -45,4 +58,4 @@ function form() {
   );
 }
 
-export default form;
+export default Form;
