@@ -10,10 +10,14 @@ class App extends Component {
     return (
       <Container component="article" maxWidth="sm">
         <Typography variant="h3" component="h1" align="center">Register Form</Typography>
-        <Form />
+        <Form sendForm={sendForm} />
       </Container>
     )
   }
+}
+
+function sendForm(data){
+
 }
 
 export default App;

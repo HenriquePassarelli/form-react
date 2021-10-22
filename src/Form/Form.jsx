@@ -4,11 +4,15 @@ import { TextField, Button, Switch, FormControlLabel } from "@material-ui/core";
 function Form() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [promotions, setPromotions] = useState(true);
+  const [news, setNews] = useState(true);
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
+        props.onSubmit({name,})
       }}
     >
       <TextField
@@ -34,6 +38,10 @@ function Form() {
         fullWidth
       />
       <TextField
+        value={cpf}
+        onChange={(event) => {
+          setCpf(event.target.value);
+        }}
         id="cpf"
         label="CPF"
         variant="outlined"
@@ -43,12 +51,13 @@ function Form() {
       <FormControlLabel
         label="Promotions"
         control={
-          <Switch name="promotions" defaultChecked="true" color="primary" />
+          <Switch name="promotions" checked={promotions} defaultChecked={promotions} color="primary" onChange={(event) => { setPromotions(event.target.checked)}} />
         }
       />
       <FormControlLabel
         label="News"
-        control={<Switch name="news" defaultChecked="true" color="primary" />}
+        control={<Switch name="news" checked={news} defaultChecked={news} color="primary" onChange={(event) => { setNews(event.target.checked)}}/>}
+
       />
 
       <Button type="submit" variant="contained" color="primary">
