@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Container component="article" maxWidth="sm">
         <Typography variant="h3" component="h1" align="center">Register Form</Typography>
-        <Form sendForm={sendForm} />
+        <Form sendForm={sendForm} validateCpf={validateCpf}/>
       </Container>
     )
   }
@@ -18,6 +18,14 @@ class App extends Component {
 
 function sendForm(data){
 
+}
+
+function validateCpf(cpf){
+  if(cpf.length !== 11){
+    return { valid: false, text: "Cpf must have 11 digits" }
+  }else {
+    return { valid: true, text: "" }
+  }
 }
 
 export default App;
