@@ -9,12 +9,12 @@ function PersonalData(props) {
   const [news, setNews] = useState(true);
   const [error, setError] = useState({ cpf: { valid: true, text: "" } });
 
-  const { sendForm, validateCpf } = props;
+  const { toSendForm, validateCpf } = props;
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        sendForm({ name, lastName, cpf, promotions, news });
+        toSendForm({ name, lastName, cpf, promotions, news });
       }}
     >
       <TextField
@@ -24,6 +24,7 @@ function PersonalData(props) {
         }}
         id="name"
         label="Name"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
@@ -35,6 +36,7 @@ function PersonalData(props) {
         }}
         id="lastName"
         label="Last Name"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
@@ -53,6 +55,7 @@ function PersonalData(props) {
         helperTest={error.cpf.text}
         id="cpf"
         label="CPF"
+        required
         variant="outlined"
         margin="normal"
         fullWidth

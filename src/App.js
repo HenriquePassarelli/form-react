@@ -10,14 +10,14 @@ class App extends Component {
     return (
       <Container component="article" maxWidth="sm">
         <Typography variant="h3" component="h1" align="center">Register Form</Typography>
-        <Form sendForm={sendForm} validateCpf={validateCpf} />
+        <Form toSendForm={sendForm} validateCpf={validateCpf} />
       </Container>
     )
   }
 }
 
 function sendForm(data) {
-
+  console.log(data)
 }
 
 function validateCpf(cpf) {
