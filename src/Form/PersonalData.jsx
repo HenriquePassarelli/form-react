@@ -9,7 +9,24 @@ function PersonalData(props) {
   const [news, setNews] = useState(true);
   const [error, setError] = useState({ cpf: { valid: true, text: "" } });
 
-  const { toSendForm, validateCpf } = props;
+  const { toSendForm, validate } = props;
+
+  function fieldValidate(event) {
+    const { name, value } = event.target;
+    const newState = { ...error };
+    newState[name] = validate[name](value);
+    setError(newState);
+  }
+
+  function beforeSend(){
+    for(let field in error){
+      if(!error[field].valid){
+        return false
+      }
+    }
+    return true
+  }
+
   return (
     <form
       onSubmit={(event) => {
@@ -24,6 +41,7 @@ function PersonalData(props) {
         }}
         id="name"
         label="Name"
+        name="name"
         required
         variant="outlined"
         margin="normal"
@@ -36,6 +54,7 @@ function PersonalData(props) {
         }}
         id="lastName"
         label="Last Name"
+        name="lastName"
         required
         variant="outlined"
         margin="normal"
@@ -46,15 +65,12 @@ function PersonalData(props) {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
-        onBlur={() => {
-          const isValid = validateCpf(cpf);
-
-          setError({ cpf: isValid });
-        }}
+        onBlur={fieldValidate}
         error={!error.cpf.valid}
         helperTest={error.cpf.text}
         id="cpf"
         label="CPF"
+        name="cpf"
         required
         variant="outlined"
         margin="normal"
@@ -90,7 +106,7 @@ function PersonalData(props) {
       />
 
       <Button type="submit" variant="contained" color="primary">
-        Register
+        Next
       </Button>
     </form>
   );
