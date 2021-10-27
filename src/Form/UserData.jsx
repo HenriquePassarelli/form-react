@@ -1,26 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button } from "@material-ui/core";
+import  useErrors  from "../hooks/useErrors";
+import FormValidation from "../context/FromValidation";
 
-function UserData({ toSendForm, validate }) {
+function UserData({ toSendForm }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({ password: { valid: true, text: "" } });
-
-  function fieldValidate(event) {
-    const { name, value } = event.target;
-    const newState = { ...error };
-    newState[name] = validate[name](value);
-    setError(newState);
-  }
-
-  function beforeSend() {
-    for (let field in error) {
-      if (!error[field].valid) {
-        return false;
-      }
-    }
-    return true;
-  }
+  const validations = useContext(FormValidation)
+  const [error, fieldValidate, beforeSend] = useErrors(validations);
 
   return (
     <form

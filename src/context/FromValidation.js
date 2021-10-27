@@ -1,10 +1,12 @@
 import React from 'react';
 
-const FromValidation = React.createContext(
-    { cpf: validateCpf, password: validatePassword }
-
+const FormValidation = React.createContext(
+    { cpf: withoutValidation, password: withoutValidation, name: withoutValidation }
 )
 
+function withoutValidation(data) {
+    console.log(data);
+    return { valid: true, text: "" };
+}
 
-
-export default FromValidation
+export default FormValidation

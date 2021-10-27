@@ -1,37 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button, Switch, FormControlLabel } from "@material-ui/core";
+import useErrors from "../hooks/useErrors";
+import FormValidation from "../context/FromValidation";
 
-function PersonalData(props) {
+function PersonalData({ toSendForm }) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [cpf, setCpf] = useState("");
   const [promotions, setPromotions] = useState(true);
   const [news, setNews] = useState(true);
-  const [error, setError] = useState({ cpf: { valid: true, text: "" } });
 
-  const { toSendForm, validate } = props;
-
-  function fieldValidate(event) {
-    const { name, value } = event.target;
-    const newState = { ...error };
-    newState[name] = validate[name](value);
-    setError(newState);
-  }
-
-  function beforeSend(){
-    for(let field in error){
-      if(!error[field].valid){
-        return false
-      }
-    }
-    return true
-  }
+  const validations = useContext(FormValidation);
+  const [error, fieldValidate, beforeSend] = useErrors(validations);
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        toSendForm({ name, lastName, cpf, promotions, news });
+        if (beforeSend()) {
+          toSendForm({ name, lastName, cpf, promotions, news });
+        }
       }}
     >
       <TextField

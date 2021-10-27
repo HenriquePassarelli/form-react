@@ -4,22 +4,24 @@ import PersonalData from "./PersonalData";
 import DeliveryData from "./DeliveryData";
 import { Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 
-function Form({toSendForm, validate}) {
+function Form({toSendForm}) {
   const [actualStage, setActualStage] = useState(0);
   const [dataCollected, setDataCollected] = useState({});
+
   useEffect(() => {
+    
     if (actualStage === forms.length-1) toSendForm(dataCollected);
   });
 
   const forms = [
-    <UserData toSendForm={dataCollector}  validate={validate}/>,
-    <PersonalData toSendForm={dataCollector} validate={validate}/>,
-    <DeliveryData toSendForm={dataCollector} validate={validate}/>,
+    <UserData toSendForm={dataCollector}  />,
+    <PersonalData toSendForm={dataCollector} />,
+    <DeliveryData toSendForm={dataCollector} />,
     <Typography variant="h5"> Thank you !!</Typography>,
   ];
 
   function dataCollector(data) {
-    setDataCollected({ ...dataCollected, data });
+    setDataCollected({ ...dataCollected, ...data });
     next();
   }
 
